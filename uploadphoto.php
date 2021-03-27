@@ -15,37 +15,42 @@ try {
     echo 'Something went wrong: '.$e->getMessage()."\n";
     exit(0);
 }
-while (True):
-try {
+$user = $ig->people->getInfoByName('nsrinanp');
 
-    if($self_following_target){
-        $following_self = $ig->people->getSelfFollowing(\InstagramAPI\Signatures::generateUUID())->getUsers();
-
-        foreach ($following_self as $user) {
-            $username_target[] = $user->getUsername();
-        }
-    }else{
-        $username_target = $target;
-    }
+print_r($user);
 
 
-    foreach ($username_target as $username) {
-        echo " get post from " . $username . ' :D' . PHP_EOL;
-        $userId = $ig->people->getUserIdForName($username);
-        $items = $ig->timeline->getUserFeed($userId, null)->getItems();
-        foreach ($items as $item) {
-            $old_ids = getOldIds();
-            if (!in_array($item->getId(), $old_ids)) {
-                uploads($ig, $item, $item->getMediaType());
-                break;
-            }
-        }
-    }
-
-} catch (\Exception $e) {
-    echo 'Something went wrong: '.$e->getMessage()."\n";
-}
-endwhile;
+//while (True):
+//try {
+//
+//    if($self_following_target){
+//        $following_self = $ig->people->getSelfFollowing(\InstagramAPI\Signatures::generateUUID())->getUsers();
+//
+//        foreach ($following_self as $user) {
+//            $username_target[] = $user->getUsername();
+//        }
+//    }else{
+//        $username_target = $target;
+//    }
+//
+//
+//    foreach ($username_target as $username) {
+//        echo " get post from " . $username . ' :D' . PHP_EOL;
+//        $userId = $ig->people->getUserIdForName($username);
+//        $items = $ig->timeline->getUserFeed($userId, null)->getItems();
+//        foreach ($items as $item) {
+//            $old_ids = getOldIds();
+//            if (!in_array($item->getId(), $old_ids)) {
+//                uploads($ig, $item, $item->getMediaType());
+//                break;
+//            }
+//        }
+//    }
+//
+//} catch (\Exception $e) {
+//    echo 'Something went wrong: '.$e->getMessage()."\n";
+//}
+//endwhile;
 
 function hasPhoneNumber($text){
     $pattern = '~\b\d[- /\d]*\d\b~';
@@ -101,6 +106,7 @@ function uploads($ig, $item, $type = 1){
         if($type == 1):
             $photo = new \InstagramAPI\Media\Photo\InstagramPhoto($file_name);
             $ig->timeline->uploadPhoto($photo->getFile(), ['caption' => escapeUsername($capt)]);
+            echo shell_exec('./tweet '.$file_name);
         else:
             $video = new \InstagramAPI\Media\Video\InstagramVideo($file_name);
             $ig->timeline->uploadVideo($video->getFile(), ['caption' => escapeUsername($capt), 'share_facebook' => 1]);

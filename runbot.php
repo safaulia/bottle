@@ -1,7 +1,7 @@
 <?php
 require __DIR__ .'/MasterBot.php';
 $reposter = new RepostInstagram\MasterBot();
-$reposter->setCredentials('followersgratisscekbio003', 'sayangrina')
+$reposter->setCredentials('followrsgratiscekbio001', 'sayangrina')
     ->login()
     ->run([ 'naisaalifiayuriza',
             'brisiajodie96',
@@ -18,7 +18,7 @@ $reposter->setCredentials('followersgratisscekbio003', 'sayangrina')
             'rachelvennya',
             'okintph'],
         [
-            RepostInstagram\MasterBot::BOT_DM_MODE
+            RepostInstagram\MasterBot::BOT_FOLLOW_MODE
         ]
     );
 
