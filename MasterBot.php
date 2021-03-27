@@ -175,7 +175,7 @@ class MasterBot{
     public function isFollowAvailable()
     {
         if($this->lastFollowingTime == null) return true;
-        return (microtime(true) - $this->lastFollowingTime) > rand(420,450ls);
+        return (microtime(true) - $this->lastFollowingTime) > rand(420,450);
     }
     public function isDirrectMessageAvailable()
     {
